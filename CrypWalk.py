@@ -3,29 +3,40 @@ import requests
 import json
 from collections import Counter
 import re
-import unirest
-
+#import unirest
 
 url = "https://wordsapiv1.p.mashape.com/words/"
-added = 0
-def encrypt(inString):
+
+def encrypt(inString,mode,amount):
+    outString = ""
     inString = inString.lower()
-    global added
-    added= 1#random.randint(1,25)
-    #print(added)
-    #print(inString)
+    if (mode==0 or mode==1):
+        if (amount==0):
+            amount= random.randint(1,25)
+        outString = add(inString,amount)
+    elif (mode==2):
+        outString = add(inString,1)
+    elif (mode==3):
+        if (amount==0 or amount < -1 or amount >= inString.__len__()):
+            amount=2
+        outString = swap(inString,amount)
+    elif (mode==4):
+        outString = reverse(inString)
+    return outString
+
+def add(inString,added):
     outString = ""
     for c in inString:
-        i = added+ord(c)
-        #print(i)
+        i = added + ord(c)
+        # print(i)
         if (c is ' ' or c < 'a' or c > 'z'):
-            outString+=c
+            outString += c
         else:
             if (i > ord('z')):
                 i -= 26
             elif (i < ord('a')):
-                i+=26
-            outString+=chr(i)
+                i += 26
+            outString += chr(i)
     return outString
 
 def subtract(inString,key):
@@ -45,7 +56,17 @@ def subtract(inString,key):
 def rot1(inString,key):
     return subtract(inString,key)
 
-#def reverse(inString):
+def reverse(inString):
+    words = inString.split(' ')
+    outstring = ""
+    for w in words:
+        w=w[::-1]
+        outstring+=w
+        outstring+=" "
+    return outstring
+
+def swap(inString,amount):
+    return ''.join([inString[x:x + amount][::-1] for x in range(0, len(inString), amount)])
 
 
 #def ceasar(inString,key):
@@ -64,45 +85,37 @@ def validate(decrypted):
     print(requests.get(url+"example"))
 
 
-def decrypt(inString,key, mode):
+def decrypt(inString,mode,key):
     inString = inString.lower()
     outstring = ""
-    #key known
-    if key >= 1:
-        outstring = subtract(inString,key)
-    else:
-        if (mode != 0):
-            if (mode == 1):
-                outstring = rot1(inString,1)
-            #elif (mode==4):
-                #outstring = reverse(inString)
-
-        else:#Ceaser Cipher
-            likelyE = Counter("".join(re.findall("[a-z]+",inString))).most_common(5)
-            key = ord(likelyE[0][0])-ord('e')
-            print(likelyE)
-            #print(key)
-            outstring = subtract(inString,key)
-            #TODO: should validate with Words API
-            #if not validated, try other common letters
-            #if mode says want a ceaser cipher try brute force
-
-        #TODO: monoalphabetic cipher
-
-        #TODO: reverse
-
-        #TODO: swap every two letters
-
-        #TODO: vignere cipher
+    #unknown or caesar
+    if (mode==1 or mode==0):
+        #key known
+        if key != 0:
+            outstring = subtract(inString, key)
+        #key not known
+        else:
+            likelyE = Counter("".join(re.findall("[a-z]+", inString))).most_common(5)
+            key = ord(likelyE[0][0]) - ord('e')
+            outstring = subtract(inString, key)
+    #rot1
+    elif (mode == 2):
+        outstring = rot1(inString,1)
+    #swap
+    elif (mode == 3):
+        outstring = swap(inString,key)
+    #reverse
+    elif (mode==4):
+        outstring = reverse(inString)
     return outstring
 
-toEncrypt = "lead beat"
+toEncrypt = "reverse"
 print("Original Message: "+toEncrypt)
-enc = encrypt(toEncrypt)
+#               string,mode,amount
+enc = encrypt(toEncrypt,0,4)
 print("Encrypted: "+enc)
 #mode key: 0 = unknown; 1 = ceasar; 2=rot1; 3 = swap; 4 = reverse; 5 = monoalphabetic
+#           string,mode,key
 dec = decrypt(enc,0,0)
 #if dec not validated && dec.len < 50 print try using a longer message
 print("Decrypted: "+dec)
-
-
