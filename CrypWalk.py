@@ -3,7 +3,6 @@ import requests
 import json
 from collections import Counter
 import re
-#import unirest
 
 url = "https://wordsapiv1.p.mashape.com/words/"
 
@@ -27,8 +26,8 @@ def encrypt(inString,mode,amount):
 def add(inString,added):
     outString = ""
     for c in inString:
+        #rotate every character by {added} i.e. if added = 4, 'a' becomes 'e'
         i = added + ord(c)
-        # print(i)
         if (c is ' ' or c < 'a' or c > 'z'):
             outString += c
         else:
@@ -43,6 +42,7 @@ def subtract(inString,key):
     outstring = ""
     for c in inString:
         i = ord(c) - key
+        #rotate every character backward by {key}
         if (c is ' ' or c < 'a' or c > 'z'):
             outstring += c
         else:
@@ -54,9 +54,11 @@ def subtract(inString,key):
     return outstring
 
 def rot1(inString,key):
+    #rotates every character up one (i.e. 'a' becomes 'b'
     return subtract(inString,key)
 
 def reverse(inString):
+    #reverse characters in every word in string
     words = inString.split(' ')
     outstring = ""
     for w in words:
@@ -66,24 +68,46 @@ def reverse(inString):
     return outstring
 
 def swap(inString,amount):
+    #switch every {amount} characters in string
     return ''.join([inString[x:x + amount][::-1] for x in range(0, len(inString), amount)])
 
+#et tu, Brute?
+def ceasarBrute(inString):
+    #letters by frequency in english words:  etaoinshrdlcumwfgypbvkjxqz
+    outstring = ""
+    first = ""
+    for c in "etaoinshrdlcumwfgypbvkjxqz":
+        mostCommon = Counter("".join(re.findall("[a-z]+", inString))).most_common(5)
+        key = ord(mostCommon[0][0]) - ord(c)
+        outstring = subtract(inString, key)
+        if c == 'e':
+            first = outstring
+        test = outstring.split(' ')
+        urlTest = "{0}{1}/definitions".format(url, test[0])
+        check = validate(urlTest)
+        if (test.__len__()>=2):
+            urlTest1 = "{0}{1}/definitions".format(url, test[1])
+            check2 = validate(urlTest1)
+            if (check == 200 and check2 == 200):
+                return outstring
+            elif ((check!=200 or check2!=200) and test.__len__()>=3):
+                urlTest2 = "{0}{1}/definitions".format(url, test[2])
+                check3 = validate(urlTest2)
+                if check3 == 200:
+                    return outstring
+        else:
+            if (check == 200):
+                return outstring
+    print("Your cipher may be unencryptable! Best guess is below :)")
+    return first
 
-#def ceasar(inString,key):
-
-def validate(decrypted):
-    resp = requests.get("https://wordsapiv1.p.mashape.com/words/example/definitions")
-    #print(resp.status_code)
-    if (resp.ok):
-        jformat = json.loads(resp.content)
-        print("the response contains {0} properties".format(len(jformat)))
-        print("\n")
-        for key in jformat:
-            print(key+" : "+jformat[key])
-    else:
-        resp.raise_for_status()
-    print(requests.get(url+"example"))
-
+def validate(urlTest):
+    resp = requests.get(urlTest,
+    headers={
+        "X-Mashape-Key": "3xIPBh3pPrmshLyciGNwf1zWzEIHp1IumutjsnSKlkRXO606rS",
+        "Accept": "application/json"})
+    #200 if word found in dictionary; 404 otherwise
+    return resp.status_code
 
 def decrypt(inString,mode,key):
     inString = inString.lower()
@@ -95,9 +119,7 @@ def decrypt(inString,mode,key):
             outstring = subtract(inString, key)
         #key not known
         else:
-            likelyE = Counter("".join(re.findall("[a-z]+", inString))).most_common(5)
-            key = ord(likelyE[0][0]) - ord('e')
-            outstring = subtract(inString, key)
+            outstring = ceasarBrute(inString)
     #rot1
     elif (mode == 2):
         outstring = rot1(inString,1)
@@ -109,13 +131,12 @@ def decrypt(inString,mode,key):
         outstring = reverse(inString)
     return outstring
 
-toEncrypt = "reverse"
-print("Original Message: "+toEncrypt)
+toEncrypt = "try words without fifth char"
+print("Original Message: "+toEncrypt)#toEncrypt)
 #               string,mode,amount
-enc = encrypt(toEncrypt,0,4)
+enc = encrypt(toEncrypt,1,0)
 print("Encrypted: "+enc)
 #mode key: 0 = unknown; 1 = ceasar; 2=rot1; 3 = swap; 4 = reverse; 5 = monoalphabetic
 #           string,mode,key
-dec = decrypt(enc,0,0)
-#if dec not validated && dec.len < 50 print try using a longer message
+dec = decrypt(enc,1,0)
 print("Decrypted: "+dec)
