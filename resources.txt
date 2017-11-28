@@ -1,0 +1,13 @@
+/////////////////////////
+//RESOURCES FOR HOSTING//
+/////////////////////////
+
+IBM Bluemix: 
+  https://www.ibm.com/blogs/bluemix/2017/07/deploying-react-web-app-ibm-container-services/
+    which goes with:
+    https://github.com/IBM-Bluemix/node-MERN-stack
+  
+Heroku:
+  https://hashnode.com/post/deploying-mern-to-heroku-success-cio7sc1py013nis531rg3lfmz
+  https://medium.com/@s1akr/deploying-a-mern-mongo-express-react-node-stack-web-app-on-to-heroku-d6a7745f88ba
+  
