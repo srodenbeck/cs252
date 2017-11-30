@@ -11,3 +11,9 @@ Heroku:
   https://hashnode.com/post/deploying-mern-to-heroku-success-cio7sc1py013nis531rg3lfmz
   https://medium.com/@s1akr/deploying-a-mern-mongo-express-react-node-stack-web-app-on-to-heroku-d6a7745f88ba
   
+Using flask:
+https://realpython.com/blog/python/the-ultimate-flask-front-end/
+
+Troubleshooting flask:
+https://stackoverflow.com/questions/31252791/flask-importerror-no-module-named-flask
+1)download python 2)download pip 3)download flask and virtualenv
