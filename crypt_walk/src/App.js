@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Translate from './Translate';
+import Email from './Email';
 import logo from './logo.svg';
 import './App.css';
 
@@ -7,12 +9,19 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1>Welcome to CryptWalk!</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <nav className='navbar navbar-inverse'>
+          <ul className="nav navbar-nav">
+            <li className="active"><a data-toggle="tab" href="#translate">Personal Info</a></li>
+          </ul>
+        </nav>
+
+        <div className="tab-content container">
+          <div id="translate" className="tab-pane fade in active">
+            <Translate/>
+          </div>
+        </div>
       </div>
     );
   }
