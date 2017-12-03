@@ -10,6 +10,14 @@ IBM Bluemix:
 Heroku:
   https://hashnode.com/post/deploying-mern-to-heroku-success-cio7sc1py013nis531rg3lfmz
   https://medium.com/@s1akr/deploying-a-mern-mongo-express-react-node-stack-web-app-on-to-heroku-d6a7745f88ba
+  https://devcenter.heroku.com/articles/deploying-nodejs
+  Possible?: https://blog.codeship.com/heroku-github-nodejs-deployment/
+ 
+Github Pages:
+  https://github.com/rafrex/spa-github-pages
+    ^^^but this is only for single page
+  
+
 
 /////////////////////////////
 //POSSIBLE HOWTO FOR HEROKU//
