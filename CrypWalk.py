@@ -5,7 +5,7 @@ from collections import Counter
 import re
 
 url = "https://wordsapiv1.p.mashape.com/words/"
-
+@app.route("/encrypt", methods = ["POST"])
 def encrypt(inString,mode,amount):
     outString = ""
     inString = inString.lower()
@@ -108,7 +108,7 @@ def validate(urlTest):
         "Accept": "application/json"})
     #200 if word found in dictionary; 404 otherwise
     return resp.status_code
-
+@app.route("/decrypt",methods=["POST"])
 def decrypt(inString,mode,key):
     inString = inString.lower()
     outstring = ""
