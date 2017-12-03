@@ -1,5 +1,15 @@
-.DS_Store
-node_modules
-bower_components
-env
-project/static/js/dist
+*.log
+*.DS_Store
+
+# Python
+.python-version
+*.pyc
+/build
+/dist
+*.egg-info
+.eggs
+
+# template
+/static/scripts/js/*
+/static/css/*
+/node_modules/*
