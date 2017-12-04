@@ -33,7 +33,7 @@ def encrypt():
 #     mode = 1
 #     amount = 1
 
-    
+
 
     inString = request.args.get('arg1')
     mode = request.args.get('arg2')
@@ -48,12 +48,13 @@ def encrypt():
     amount = strd.encode("utf8")
     amount = int(amount);
 
+    # print(validate(inString))
+
     outString = ""
     inString = inString.lower()
     if (mode==0 or mode==1):
         if (amount==0):
             amount= random.randint(1,25)
-        print('am i mode 1')
         outString = add(inString,amount)
     elif (mode==2):
         outString = add(inString,1)
@@ -63,7 +64,6 @@ def encrypt():
         outString = swap(inString,amount)
     elif (mode==4):
         outString = reverse(inString)
-    print("outstring = " + outString)
     return outString
 
 def add(inString,added):
@@ -126,33 +126,36 @@ def ceasarBrute(inString):
         if c == 'e':
             first = outstring
         test = outstring.split(' ')
-        urlTest = "{0}{1}/definitions".format(url, test[0])
-        check = validate(urlTest)
+
+        # urlTest = "{0}{1}/definitions".format(url, test[0])
+        # check = validate(urlTest)
+        check = validate(test[0]);
+
         if (test.__len__()>=2):
-            urlTest1 = "{0}{1}/definitions".format(url, test[1])
-            check2 = validate(urlTest1)
-            if (check == 200 and check2 == 200):
+            # urlTest1 = "{0}{1}/definitions".format(url, test[1])
+            # check2 = validate(urlTest1)
+            check2 = validate(test[1])
+            if (check  and check2):
                 return outstring
-            elif ((check!=200 or check2!=200) and test.__len__()>=3):
-                urlTest2 = "{0}{1}/definitions".format(url, test[2])
-                check3 = validate(urlTest2)
-                if check3 == 200:
+            elif ((not check or not check2) and test.__len__()>=3):
+                # urlTest2 = "{0}{1}/definitions".format(url, test[2])
+                # check3 = validate(urlTest2)
+                check3 = validate(test[2])
+                if check3:
                     return outstring
         else:
-            if (check == 200):
+            if (check):
                 return outstring
     print("Your cipher may be unencryptable! Best guess is below :)")
     return first
 
-def validate(urlTest):
-    resp = requests.get(urlTest,
-    headers={
-        "X-Mashape-Key": "3xIPBh3pPrmshLyciGNwf1zWzEIHp1IumutjsnSKlkRXO606rS",
-        "Accept": "application/json"})
-    #200 if word found in dictionary; 404 otherwise
-    return resp.status_code
 
-@app.route("/decrypt",methods=["POST"])
+def validate(word):
+    diction = dictionary.meaning(word);
+    return isinstance(diction, dict);
+
+
+@app.route("/decrypt",methods=["GET"])
 #def decrypt(inString,mode,key):
 def decrypt():
 
@@ -165,9 +168,9 @@ def decrypt():
     strd = mode.decode("windows-1252")
     mode = strd.encode("utf8")
     mode = int(mode);
-    strd = amount.decode("windows-1252")
-    amount = strd.encode("utf8")
-    amount = int(amount);
+    strd = key.decode("windows-1252")
+    key = strd.encode("utf8")
+    key = int(key);
 
     inString = inString.lower()
     outstring = ""
