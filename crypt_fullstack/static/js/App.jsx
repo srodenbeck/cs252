@@ -11,7 +11,7 @@ export default class App extends React.Component {
       </header>
       <nav className='navbar navbar-inverse'>
         <ul className="nav navbar-nav">
-          <li className="active"><a data-toggle="tab" href="#translate">Personal Info</a></li>
+          <li className="active"><a data-toggle="tab" href="#translate">Encryption/Decryption</a></li>
         </ul>
       </nav>
 

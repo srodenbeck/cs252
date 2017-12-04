@@ -29,12 +29,6 @@ def hello():
 @app.route("/encrypt", methods = ["GET"])
 # def encrypt(inString,mode,amount):
 def encrypt():
-#     inString = "hello world"
-#     mode = 1
-#     amount = 1
-
-
-
     inString = request.args.get('arg1')
     mode = request.args.get('arg2')
     amount = request.args.get('arg3')
