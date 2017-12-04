@@ -16,6 +16,8 @@ Heroku:
 Github Pages:
   https://github.com/rafrex/spa-github-pages
     ^^^but this is only for single page
+  https://gist.github.com/TylerFisher/6127328
+    ^^^^^THIS IS WHAT IS WORKING CURRENTLY^^^^
   
 
 
