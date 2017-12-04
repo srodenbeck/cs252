@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request
 import flask
 import json
+import random
+#import requests
+import json
+from collections import Counter
+import re
 
 app = Flask(__name__)
 
@@ -35,6 +40,7 @@ def data():
     response = flask.jsonify(data)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
 
 
 if __name__ == '__main__':
