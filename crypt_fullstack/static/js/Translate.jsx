@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import req from 'superagent';
+
+var $ = require('jquery');
 
 class Translate extends Component {
 
@@ -18,11 +21,30 @@ class Translate extends Component {
           result: 'Decrypt'
         };
         this.handleChange = this.handleChange.bind(this);
-        //this.handleEncrypt = this.handleEncrypt.bind(this);
+        this.handleEncrypt = this.handleEncrypt.bind(this);
+        this.handleDecrypt = this.handleDecrypt.bind(this);
   }
 
   handleChange(event) {
     this.setState({initialValue: event.target.value});
+  }
+
+  handleEncrypt() {
+    const url = window.location.href + 'encrypt';
+    const value = this.state.initialValue;
+    $.get(url, {arg1: value, arg2: 1, arg3: 2},(data) => {
+            this.setState({resultValue: data})
+            console.log(data);
+        });
+  }
+
+  handleDecrypt() {
+    const url = window.location.href + 'decrypt';
+    const value = this.state.initialValue;
+    $.get(url, {arg1: value, arg2: 1, arg3: 2},(data) => {
+            this.setState({resultValue: data})
+            console.log(data);
+        });
   }
 
   render() {
@@ -43,15 +65,15 @@ class Translate extends Component {
           </div>
           <div className="btn-group btn-group-vertical col-md-2" role="group" aria-label="...">
             <div className="btn-group" role="group">
-              <button type="button" className="btn btn-primary">Encrypt</button>
+              <button type="button" className="btn btn-primary" onClick={this.handleEncrypt}>Encrypt</button>
             </div>
             <div className="btn-group" role="group">
-              <button type="button" className="btn btn-primary">Decrypt</button>
+              <button type="button" className="btn btn-primary" onClick={this.handleDecrypt}>Decrypt</button>
             </div>
           </div>
           <div className="form-group  col-md-3 text-left">
             <label className='text-left'>Output:</label>
-            <textarea className="form-control" rows="5" id="comment" disabled value={this.state.decryptValue}></textarea>
+            <textarea className="form-control" rows="5" id="comment" disabled value={this.state.resultValue}></textarea>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ url = "https://wordsapiv1.p.mashape.com/words/"
 @app.route("/encrypt", methods = ["POST"])
 def encrypt(inString,mode,amount):
     outString = ""
+    print(inString)
     inString = inString.lower()
     if (mode==0 or mode==1):
         if (amount==0):
