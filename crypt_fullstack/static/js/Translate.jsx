@@ -129,8 +129,8 @@ class Translate extends Component {
             </select>
           </div>}
         </div>
-        <div className='col-md-offset-2 container row'>
-          <div className="form-group col-md-3 text-left">
+        <div className='  row'>
+          <div className="form-group col-md-5 text-left">
             <label >Input:</label>
             <textarea className="form-control" rows="5" id="comment" value={this.state.initialValue} onChange={this.handleTextChange}></textarea>
           </div>
@@ -143,7 +143,7 @@ class Translate extends Component {
           <div className="btn-group col-md-1" role="group">
             <button type="button" className="btn btn-primary" onClick={this.handleDecrypt}>Decrypt</button>
           </div>}
-          <div className="form-group  col-md-3 text-left">
+          <div className="form-group  col-md-5 text-left">
             <label className='text-left'>Output:</label>
             <textarea className="form-control" rows="5" id="comment" disabled value={this.state.resultValue}></textarea>
           </div>
