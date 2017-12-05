@@ -1,3 +1,29 @@
+//////////////////////////////
+//POSSIBLE DB IMPLEMENTATION//
+//////////////////////////////
+
+#SETUP:
+import MySQLdb
+
+conn = MySQLdb.connect("mysql.server", "srodenbeck", "whatever_password_you_made_it", "srodenbeck$CryptWalkdb")
+
+c = conn.cursor()
+
+#TO INSERT:
+value1 = key
+value2 = value
+c.execute("INSERT INTO tbl (info) VALUES (%s)", (value1))
+c.execute("INSERT INTO tbl (info) VALUES (%s)", (value2))
+conn.commit()
+
+#TO RETRIEVE:
+c.execute("SELECT * FROM tbl")
+rows = c.fetchall()
+for eachRow in rows:
+    print eachRow
+    ##check if == key
+    ##if == key, next row will be value
+
 /////////////////////////
 //RESOURCES FOR HOSTING//
 /////////////////////////
