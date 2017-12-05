@@ -92,7 +92,7 @@ class Translate extends Component {
   }
 
   render() {
-    const keyOption = this.state.key
+    let keyOption = this.state.key
     if(this.state.key === 0 && this.state.cypher === 'swap') {
       keyOption = 1;
     }
