@@ -51,7 +51,8 @@ class Translate extends Component {
     const mode = this.cypherToMode()
     const url = window.location.href + 'decrypt';
     const value = this.state.initialValue;
-    const key = parseInt(this.state.key, 10)
+    let key = parseInt(this.state.key, 10);
+    if(key === 26) key = 0;
     $.get(url, {arg1: value, arg2: mode, arg3: key},(data) => {
             this.setState({resultValue: data})
             console.log(data);
@@ -121,6 +122,7 @@ class Translate extends Component {
             <select className="form-control" onChange={this.handleKeyChange} value={keyOption}>
               {/* {this.renderSelectKey()} */}
               <option value='0'>Random</option>
+              <option value='26'>Unknown</option>
               <option value='1'>1</option>
               <option value='2'>2</option>
               <option value='3'>3</option>
