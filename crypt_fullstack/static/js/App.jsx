@@ -1,9 +1,29 @@
 import React from 'react';
 //import React, { Component } from 'react';
 import Translate from './Translate';
-//import Email from './Email';
+import Login from './Login';
+import SignUp from './Signup';
+import Modal from 'react-responsive-modal';
 
 export default class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      openLoginModal: false,
+      openSigninModal: false,
+    }
+    this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
+    this.handleCloseSigninModal = this.handleCloseSigninModal.bind(this);
+  }
+
+  handleCloseLoginModal() {
+    this.setState({openLoginModal: !this.state.openLoginModal})
+  }
+  handleCloseSigninModal() {
+    this.setState({openSigninModal: !this.state.openSigninModal})
+  }
+
   render() {
     return (
     <div className="App">
@@ -14,9 +34,9 @@ export default class App extends React.Component {
         <ul className="nav navbar-nav">
           <li className="active"><a data-toggle="tab" href="#translate">Encryption/Decryption</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a data-toggle="modal" data-target="#signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          {/* <li><a href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> */}
+        <ul className="nav navbar-nav navbar-right">
+          <li><a onClick={this.handleCloseSigninModal}><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a onClick={this.handleCloseLoginModal}><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
       </nav>
 
@@ -25,26 +45,14 @@ export default class App extends React.Component {
           <Translate/>
         </div>
       </div>
-
-      {/* <div className="modal fade" id="signup" role="dialog">
-        <div className="modal-dialog">
-
-
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal">&times;</button>
-              <h4 className="modal-title">Modal Header</h4>
-            </div>
-            <div className="modal-body">
-              <p>Some text in the modal.</p>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-    </div>)
+      <Modal open={this.state.openLoginModal} onClose={this.handleCloseLoginModal} closeOnEsc={false} little>
+          <Login />
+      </Modal>
+      <Modal open={this.state.openSigninModal} onClose={this.handleCloseSigninModal} closeOnEsc={false} little>
+          <SignUp />
+      </Modal>
+    </div>
+    )
   }
+
 }
