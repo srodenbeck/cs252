@@ -5,7 +5,7 @@
 #SETUP:
 import MySQLdb
 
-conn = MySQLdb.connect("mysql.server", "srodenbeck", "whatever_password_you_made_it", "srodenbeck$CryptWalkdb")
+conn = MySQLdb.connect("srodenbeck.mysql.pythonanywhere-services.com", "srodenbeck", "whatever_password_you_made_it", "srodenbeck$CryptWalkDB")
 
 c = conn.cursor()
 
