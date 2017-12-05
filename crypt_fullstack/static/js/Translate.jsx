@@ -122,7 +122,7 @@ class Translate extends Component {
             <select className="form-control" onChange={this.handleKeyChange} value={keyOption}>
               {/* {this.renderSelectKey()} */}
               <option value='0'>Random</option>
-              <option value='26'>Unknown</option>
+              {this.state.option !== 'encrypt' && <option value='26'>Unknown</option>}
               <option value='1'>1</option>
               <option value='2'>2</option>
               <option value='3'>3</option>
