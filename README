@@ -1,7 +1,7 @@
 Lab 6 Project Proposal
-Team members: Chris Concepcion (cconcep@purdue.edu), Sarah Radenbock (srodenb@purdue.edu), Scott VanVleet (svanvlee@purdue.edu)
+Team members: Chris Concepcion (cconcep@purdue.edu), Sarah Rodenbeck (srodenb@purdue.edu), Scott VanVleet (svanvlee@purdue.edu)
 
 Project Name: CryptWalk
-Description: Users will be able to either encrypt or decrypt a message with a caesar cipher.  In encryption mode, the user can send the encrypted string to a friend via email.  In decryption mode, a lexigraphical analysis will determine the most likely solution to the cipher.
+Description: Users will be able to either encrypt or decrypt a message with a caesar cipher, rot1 cipher, swap cipher, or reverse cipher.  In decryption mode, a lexigraphical analysis will determine the most likely solution to the cipher.
 
-Technologies and Services: React, Words API, Python, Node JS, MongoDB, Express JS, MySQL
+Technologies and Services: React, Words API, Python, Node JS, PythonAnywhere, MySQL
