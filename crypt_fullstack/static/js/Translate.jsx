@@ -52,7 +52,7 @@ class Translate extends Component {
     const url = window.location.href + 'decrypt';
     const value = this.state.initialValue;
     let key = parseInt(this.state.key, 10);
-    if(key === 26) key = 0;
+    key = key % 26;
     $.get(url, {arg1: value, arg2: mode, arg3: key},(data) => {
             this.setState({resultValue: data})
             console.log(data);
