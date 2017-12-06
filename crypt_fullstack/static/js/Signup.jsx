@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var $ = require('jquery');
 
 class Signup extends Component{
 
@@ -14,6 +15,7 @@ class Signup extends Component{
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleFNameChange = this.handleFNameChange.bind(this);
     this.handleLNameChange = this.handleLNameChange.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
   }
 
   handleUserChange(event) {
@@ -29,19 +31,18 @@ class Signup extends Component{
     this.setState({lname: event.target.value});
   }
 
+  handleSignup() {
+    const url = window.location.href + 'signup';
+    $.post(url, {arg1: this.state.user, arg2: this.state.password}, (data) => {
+      console.log(data);
+    })
+  }
+
   render() {
     return (
       <div className='container-fluid'>
         <div className='row'>
-          <form>
-            <div className="form-group">
-              <label>First Name</label>
-              <input className="form-control" placeholder="John" value={this.state.fname} onChange={this.handleFNameChange}/>
-            </div>
-            <div className="form-group">
-              <label>Last Name</label>
-              <input className="form-control" placeholder="Smith" value={this.state.lname} onChange={this.handleLNameChange}/>
-            </div>
+          <form onSubmit={this.handleSignup}>
             <div className="form-group">
               <label>User</label>
               <input className="form-control" placeholder="User" value={this.state.user} onChange={this.handleUserChange}/>

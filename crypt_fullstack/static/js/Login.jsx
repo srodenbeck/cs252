@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var $ = require('jquery');
 
 class Login extends Component{
 
@@ -10,6 +11,8 @@ class Login extends Component{
     };
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+
   }
 
   handleUserChange(event) {
@@ -19,11 +22,18 @@ class Login extends Component{
     this.setState({password: event.target.value});
   }
 
+  handleLogin() {
+    const url = window.location.href + 'login';
+    $.get(url, {arg1: this.state.user, arg2: this.state.password}, (data) => {
+      console.log(data);
+    })
+  }
+
   render() {
     return (
       <div className='container-fluid'>
         <div className='row'>
-          <form>
+          <form onSubmit={this.handleLogin}>
             <div className="form-group">
               <label>User</label>
               <input className="form-control" placeholder="User" value={this.state.user} onChange={this.handleUserChange}/>
